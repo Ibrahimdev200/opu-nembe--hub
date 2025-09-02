@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Registration - Opu-Nembe</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <script defer src="script.js"></script>
+</head>
+<style>
+    /* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #f8fafc;
+  color: #2d3748;
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header & Navigation */
+.header {
+  background: #1a365d;
+  color: white;
+  padding: 1rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Logo Section */
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.logo-link:hover {
+  transform: translateY(-2px);
+}
+
+.logo-img {
+  height: 60px;
+  width: auto;
+  border-radius: 12px;
+  border: 3px solid #f6e05e;
+  background: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-link:hover .logo-img {
+  transform: scale(1.08) rotate(-3deg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.site-name {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+.site-name span {
+  color: #f6e05e;
+  font-weight: 600;
+  font-size: 1.1em;
+  letter-spacing: 1px;
+}
+
+/* Navigation */
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-list a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 500;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-list a::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #f6e05e, #38b2ac);
+  border-radius: 2px;
+  transition: width 0.4s ease, left 0.4s ease;
+}
+
+.nav-list a:hover::after,
+.nav-list a.active::after {
+  width: 70%;
+  left: 15%;
+}
+
+.nav-list a.active,
+.nav-list a:hover {
+  color: #f6e05e;
+}
+
+/* Form Section */
+.form-section {
+  flex: 1;
+  padding: 3rem 1.5rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 32px rgba(0, 85, 170, 0.12);
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.form-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  color: #1a365d;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Form Layout */
+.form-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.form-col {
+  flex: 1;
+}
+
+/* Labels & Inputs */
+.form-section label {
+  display: block;
+  margin-top: 1.2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #1a365d;
+  font-size: 1.05rem;
+}
+
+.form-section input,
+.form-section select {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 12px;
+  font-size: 1rem;
+  background: #f9fafb;
+  transition: all 0.3s ease;
+}
+
+.form-section input:focus,
+.form-section select:focus {
+  outline: none;
+  border-color: #38b2ac;
+  box-shadow: 0 0 0 3px rgba(56, 178, 172, 0.15);
+  background: white;
+}
+
+/* Radio Group */
+.radio-group {
+  display: flex;
+  gap: 2rem;
+  margin-top: 0.6rem;
+}
+
+.radio-group label {
+  font-weight: 500;
+  color: #4a5568;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.radio-group input[type="radio"] {
+  accent-color: #0055aa;
+  transform: scale(1.1);
+}
+
+/* File Upload */
+#photo {
+  border: 2px dashed #cbd5e0;
+  border-radius: 12px;
+  padding: 1rem;
+  background: #f9fafb;
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+#photo:hover {
+  border-color: #38b2ac;
+  background: #f0fdfa;
+}
+
+/* Submit Button */
+.btn-submit {
+  margin-top: 2.5rem;
+  padding: 1rem 0;
+  background: linear-gradient(90deg, #1a365d, #0055aa);
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 0 6px 20px rgba(0, 85, 170, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+  background: linear-gradient(90deg, #0055aa, #0066cc);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 85, 170, 0.4);
+}
+
+/* Success Message */
+.success-message {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.05rem;
+  animation: slideDown 0.5s ease-out;
+}
+
+.success-message.hidden {
+  display: none;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 1.8rem 1rem;
+  margin-top: auto;
+  background: #1a365d;
+  color: #e2e8f0;
+  font-size: 0.95rem;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.footer p {
+  color: #cbd5e0;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-section {
+    padding: 2rem 1rem;
+    margin: 1.5rem;
+  }
+
+  .form-section h2 {
+    font-size: 2.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-name {
+    font-size: 1.6rem;
+  }
+
+  .nav-list {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .form-section {
+    margin: 1rem;
+  }
+
+  .btn-submit {
+    padding: 0.9rem 0;
+  }
+}
+</style>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="navbar">
+      <a href="index.html" class="logo-link">
+        <img src="images/ChatGPT Image Sep 2, 2025, 08_09_21 PM.png" alt="Opu-Nembe Logo" class="logo-img" />
+        <div class="site-name">
+          Opu-Nembe <span>Bassambiri</span>
+        </div>
+      </a>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="register.html" class="active">Register</a></li>
+          <li><a href="jobs.html">Job Portal</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Registration Form Section -->
+  <section class="form-section">
+    <h2>Student Registration Form</h2>
+    <p style="text-align: center; margin-bottom: 2rem; color: #4a5568; font-size: 1.05rem;">
+      Please fill out the form below to register for our ICT training program.
+    </p>
+
+    <form id="registrationForm">
+      <!-- Class Section -->
+      <label for="classSection">Pick Class Section *</label>
+      <select id="classSection" name="classSection" required>
+        <option value="" disabled selected>-- Select Class Time --</option>
+        <option value="Morning 10am-1pm">Morning class (10am - 1pm)</option>
+        <option value="Afternoon 3pm-6pm">Afternoon class (3pm - 6pm)</option>
+      </select>
+
+      <!-- First & Last Name -->
+      <div class="form-row">
+        <div class="form-col">
+          <label for="firstName">First Name *</label>
+          <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required />
+        </div>
+        <div class="form-col">
+          <label for="lastName">Last Name *</label>
+          <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required />
+        </div>
+      </div>
+
+      <!-- Email & Phone -->
+      <div class="form-row">
+        <div class="form-col">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required />
+        </div>
+        <div class="form-col">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" name="phone" placeholder="e.g. 08012345678" required />
+        </div>
+      </div>
+
+      <!-- Address -->
+      <label for="address">Address *</label>
+      <input type="text" id="address" name="address" placeholder="Enter your full address" required />
+
+      <!-- Are you from Nembe? -->
+      <label>Are you from Nembe? *</label>
+      <div class="radio-group">
+        <label><input type="radio" name="fromNembe" value="Yes" required /> Yes</label>
+        <label><input type="radio" name="fromNembe" value="No" /> No</label>
+      </div>
+
+      <!-- Date of Birth -->
+      <label for="dob">Date of Birth *</label>
+      <input type="date" id="dob" name="dob" required />
+
+      <!-- Upload Image -->
+      <label for="photo">Upload Image *</label>
+      <small>Upload 1 supported file (JPG, PNG, JPEG). Max 10 MB.</small>
+      <input type="file" id="photo" name="photo" accept="image/jpeg,image/png,image/jpg" required />
+
+      <!-- Occupation -->
+      <label for="occupation">Occupation *</label>
+      <input type="text" id="occupation" name="occupation" placeholder="e.g. Student, Farmer, Teacher" required />
+
+      <!-- Family House Name -->
+      <label for="houseName">Family House Name *</label>
+      <input type="text" id="houseName" name="houseName" placeholder="Enter your family house name" required />
+
+      <!-- Title in Community or Government -->
+      <label>Do you have a title in the community or in government? *</label>
+      <div class="radio-group">
+        <label><input type="radio" name="hasTitle" value="Yes" required /> Yes</label>
+        <label><input type="radio" name="hasTitle" value="No" /> No</label>
+      </div>
+
+      <!-- If Yes, Specify Title -->
+      <label for="titleDetails">If yes, kindly tell us. Otherwise, put NIL *</label>
+      <input type="text" id="titleDetails" name="titleDetails" placeholder="e.g. Warrant Chief, Councilor, NIL" required />
+
+      <!-- Education Level -->
+      <label for="education">Education Level *</label>
+      <select id="education" name="education" required>
+        <option value="" disabled selected>-- Select Education Level --</option>
+        <option value="Primary">Primary education</option>
+        <option value="Secondary">Secondary education</option>
+        <option value="OND">OND</option>
+        <option value="HND">HND</option>
+        <option value="NCE">NCE</option>
+        <option value="BSC">BSC</option>
+        <option value="Masters">Masters degree</option>
+        <option value="PHD">PHD</option>
+        <option value="None">NON educated</option>
+      </select>
+
+      <!-- Computer Experience -->
+      <label for="computerExp">Do you have computer experience and how many years? *</label>
+      <input type="text" id="computerExp" name="computerExp" placeholder="e.g. 2 years, Basic knowledge" required />
+
+      <!-- Marital Status -->
+      <label for="maritalStatus">Marital Status *</label>
+      <select id="maritalStatus" name="maritalStatus" required>
+        <option value="" disabled selected>-- Select Status --</option>
+        <option value="Single">Single</option>
+        <option value="Married">Married</option>
+        <option value="Divorced">Divorced</option>
+        <option value="Widowed">Widowed</option>
+      </select>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-submit">Register Now</button>
+    </form>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="success-message hidden">
+      🎉 <strong>Success!</strong> Your registration was submitted. We’ll contact you soon!
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Opu-Nembe Community | Powered by opu-nembe peace and reconciliation committee nciliation committee </p>
+  </footer>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("registrationForm");
+  const photoInput = document.getElementById("photo");
+  const successMessage = document.getElementById("successMessage");
+
+  // Validate file size before submission
+  photoInput.addEventListener("change", function () {
+    const file = this.files[0];
+    if (file && file.size > 10 * 1024 * 1024) { // 10 MB
+      alert("File is too large. Maximum size is 10 MB.");
+      this.value = ""; // Clear input
+    }
+  });
+
+  // Handle form submission
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      // Show success message
+      successMessage.classList.remove("hidden");
+      successMessage.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      // Reset form
+      setTimeout(() => {
+        form.reset();
+      }, 500);
+
+      // Auto-hide after 5 seconds
+      setTimeout(() => {
+        if (!successMessage.classList.contains("hidden")) {
+          successMessage.classList.add("hidden");
+        }
+      }, 5000);
+    });
+  }
+});
+  </script>
+</body>
+</html>
