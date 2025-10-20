@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Student Registration - Nembe</title>
+  <title>Student Registration - Bassambiri</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
   <script defer src="script.js"></script>
@@ -352,9 +352,9 @@ body {
   <header class="header">
     <div class="navbar">
       <a href="index.html" class="logo-link">
-        <img src="images/ChatGPT_Image_Sep_4__2025__12_26_36_PM-removebg-preview.png" alt="Nembe Logo" class="logo-img" />
+        <img src="images/ChatGPT_Image_Oct_20__2025__03_29_20_AM-removebg-preview.png" alt="Bassambiri Logo" class="logo-img" />
         <div class="site-name">
-          Nembe <span> Digital Hub</span>
+          Bassambiri <span> Digital Hub</span>
         </div>
       </a>
       <nav class="nav">
@@ -411,11 +411,11 @@ body {
       <label for="address">Address *</label>
       <input type="text" id="address" name="address" placeholder="Enter your full address" required />
 
-      <!-- Are you from Nembe? -->
-      <label>Are you from Nembe? *</label>
+      <!-- Are you from Bassambiri? -->
+      <label>Are you from Bassambiri? *</label>
       <div class="radio-group">
-        <label><input type="radio" name="fromNembe" value="Yes" required /> Yes</label>
-        <label><input type="radio" name="fromNembe" value="No" /> No</label>
+        <label><input type="radio" name="fromBassambiri" value="Yes" required /> Yes</label>
+        <label><input type="radio" name="fromBassambiri" value="No" /> No</label>
       </div>
 
       <!-- Date of Birth -->
@@ -481,52 +481,198 @@ body {
 
     <!-- Success Message -->
     <div id="successMessage" class="success-message hidden">
-      🎉 <strong>Success!</strong> Your registration was submitted. We’ll contact you soon!
+      🎉 <strong>Success!</strong> Your registration was submitted. We’ll send or contact you of your  system Number via your registerd phone number soon!
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="footer">
-    <p>&copy; 2025 Nembe Community | Powered by Nembe peace and reconciliation committee nciliation committee </p>
+    <p>&copy; 2025 Bassambiri Community | Powered by Bassambiri peace and reconciliation committee nciliation committee </p>
   </footer>
   <script>
+    // Optional: set this to your server endpoint to also POST submissions
+    const POST_URL = ""; // e.g. "https://example.com/api/register"
+
     document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("registrationForm");
-  const photoInput = document.getElementById("photo");
-  const successMessage = document.getElementById("successMessage");
+      const form = document.getElementById("registrationForm");
+      const photoInput = document.getElementById("photo");
+      const successMessage = document.getElementById("successMessage");
 
-  // Validate file size before submission
-  photoInput.addEventListener("change", function () {
-    const file = this.files[0];
-    if (file && file.size > 10 * 1024 * 1024) { // 10 MB
-      alert("File is too large. Maximum size is 10 MB.");
-      this.value = ""; // Clear input
-    }
-  });
-
-  // Handle form submission
-  if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      // Show success message
-      successMessage.classList.remove("hidden");
-      successMessage.scrollIntoView({ behavior: "smooth", block: "center" });
-
-      // Reset form
-      setTimeout(() => {
-        form.reset();
-      }, 500);
-
-      // Auto-hide after 5 seconds
-      setTimeout(() => {
-        if (!successMessage.classList.contains("hidden")) {
-          successMessage.classList.add("hidden");
+      function showFormMessage(msg, isError = false) {
+        let el = document.getElementById('formMessage');
+        if (!el) {
+          el = document.createElement('div');
+          el.id = 'formMessage';
+          el.style.marginTop = '12px';
+          el.style.fontWeight = '600';
+          form.parentNode.insertBefore(el, form.nextSibling);
         }
-      }, 5000);
+        el.textContent = msg;
+        el.style.color = isError ? 'crimson' : 'green';
+      }
+
+      function validateFormData(data) {
+        const errors = [];
+        if (!data.firstName || data.firstName.trim().length < 2) errors.push('Enter a valid first name.');
+        if (!data.lastName || data.lastName.trim().length < 2) errors.push('Enter a valid last name.');
+        if (!data.email || !/^\S+@\S+\.\S+$/.test(data.email)) errors.push('Enter a valid email.');
+        if (!data.phone || data.phone.trim().length < 7) errors.push('Enter a valid phone number.');
+        if (!data.classSection) errors.push('Please choose a class time.');
+        return errors;
+      }
+
+      function saveToLocal(data) {
+        const key = 'registrations';
+        const all = JSON.parse(localStorage.getItem(key) || '[]');
+        all.push(data);
+        try {
+          localStorage.setItem(key, JSON.stringify(all));
+        } catch (err) {
+          console.warn('Failed to save to localStorage:', err);
+        }
+        return all;
+      }
+
+      async function postToServer(data) {
+        if (!POST_URL) return { skipped: true };
+        try {
+          const res = await fetch(POST_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+          const body = await res.text().catch(() => null);
+          return { ok: res.ok, status: res.status, body };
+        } catch (err) {
+          return { ok: false, error: err.message || String(err) };
+        }
+      }
+
+      function arrayToCSV(arr) {
+        if (!arr || !arr.length) return '';
+        const keys = Object.keys(arr[0]);
+        const rows = [keys.join(',')];
+        for (const obj of arr) {
+          const row = keys.map(k => {
+            const v = obj[k] ?? '';
+            return '"' + String(v).replace(/"/g, '""') + '"';
+          }).join(',');
+          rows.push(row);
+        }
+        return rows.join('\r\n');
+      }
+
+      function downloadCSV() {
+        const all = JSON.parse(localStorage.getItem('registrations') || '[]');
+        if (!all.length) {
+          alert('No registrations to download.');
+          return;
+        }
+        const csv = arrayToCSV(all);
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'registrations.csv';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      function readFileAsDataURL(file) {
+        return new Promise((resolve, reject) => {
+          const fr = new FileReader();
+          fr.onload = () => resolve(fr.result);
+          fr.onerror = () => reject(fr.error);
+          fr.readAsDataURL(file);
+        });
+      }
+
+      // Validate file size on change (existing behavior)
+      photoInput.addEventListener('change', function () {
+        const file = this.files[0];
+        if (file && file.size > 10 * 1024 * 1024) { // 10 MB
+          alert('File is too large. Maximum size is 10 MB.');
+          this.value = '';
+        }
+      });
+
+      // Add download button next to the form submit if not present
+      if (!document.getElementById('downloadRegs')) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.id = 'downloadRegs';
+        btn.textContent = 'Download registrations (CSV)';
+        btn.style.marginLeft = '8px';
+        btn.className = 'btn';
+        form.appendChild(btn);
+        btn.addEventListener('click', downloadCSV);
+      }
+
+      // Handle form submission
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          const fd = new FormData(form);
+          const data = Object.fromEntries(fd.entries());
+
+          // Handle file: include file name and small preview (only when small)
+          const file = photoInput.files[0];
+          if (file) {
+            data.photoName = file.name;
+            if (file.size <= 200 * 1024) { // only embed small images to avoid filling localStorage
+              try {
+                data.photoData = await readFileAsDataURL(file);
+              } catch (err) {
+                console.warn('Failed to read file as data URL', err);
+              }
+            } else {
+              data.photoNote = 'photo too large to store (kept name only)';
+            }
+          }
+
+          data.submittedAt = new Date().toISOString();
+
+          // validate
+          const errs = validateFormData(data);
+          if (errs.length) {
+            showFormMessage(errs.join(' '), true);
+            return;
+          }
+
+          // save locally
+          const saved = saveToLocal(data);
+
+          // optionally send to server
+          if (POST_URL) {
+            showFormMessage('Sending to server...');
+            const result = await postToServer(data);
+            if (result.skipped) {
+              // won't happen since POST_URL truthy check; kept for clarity
+            } else if (result.ok) {
+              showFormMessage('Saved locally and sent to server.');
+            } else {
+              showFormMessage('Saved locally. Server upload failed.', true);
+              console.warn('Server upload error', result);
+            }
+          } else {
+            showFormMessage('Saved locally. You can download all submissions as CSV.');
+          }
+
+          // show success message block (existing UI)
+          if (successMessage) {
+            successMessage.classList.remove('hidden');
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => { successMessage.classList.add('hidden'); }, 5000);
+          }
+
+          // reset form after small delay so user sees success
+          setTimeout(() => form.reset(), 400);
+        });
+      }
     });
-  }
-});
   </script>
 </body>
 </html>

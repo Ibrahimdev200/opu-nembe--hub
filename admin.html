@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - Bassambiri Digital Hub</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header (copied from home) -->
+  <header class="header">
+    <div class="navbar">
+      <a href="index.html" class="logo-link">
+        <img src="images/ChatGPT_Image_Oct_20__2025__03_29_20_AM-removebg-preview.png" alt="Bassambiri Logo" class="logo-img" />
+        <div class="site-name">
+          Bassambiri <span>Digital Hub</span>
+        </div>
+      </a>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="register.html">Register</a></li>
+          <li><a href="jobs.html">Job Portal</a></li>
+          <li><a href="admin.html" class="active">Admin Login</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="admin-main">
+    <section class="admin-login-section" id="adminLoginSection">
+      <h2>Admin Login</h2>
+      <form id="adminLoginForm">
+        <input type="text" id="adminUsername" placeholder="Username" required />
+        <input type="password" id="adminPassword" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </form>
+      <p id="adminLoginError" style="color:red; display:none;">Invalid credentials. Try again.</p>
+    </section>
+    <section class="admin-dashboard" id="adminDashboard" style="display:none;">
+      <h2>Admin Dashboard</h2>
+      <nav style="margin-bottom:1.5rem;">
+        <button id="showJobsBtn" style="margin-right:1rem;">All Jobs</button>
+        <button id="showAppsBtn" style="margin-right:1rem;">Applications</button>
+        <button id="showRegsBtn">Registrations</button>
+      </nav>
+      <div id="jobsPanel">
+        <h3>All Jobs</h3>
+        <ul id="allJobList"></ul>
+      </div>
+      <div id="applicationsPanel" style="display:none;">
+        <h3>Job Applications</h3>
+        <ul id="applicationsList"></ul>
+      </div>
+      <div id="registrationsPanel" style="display:none;">
+        <h3>Training Registrations</h3>
+        <ul id="registrationList"></ul>
+      </div>
+    </section>
+  </main>
+  <script src="admin.js"></script>
+</body>
+</html>

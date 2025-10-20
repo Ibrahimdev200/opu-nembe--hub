@@ -1,3 +1,189 @@
+#applicationsPanel h3 {
+  color: #38a169;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+#applicationsList li {
+  background: #f0fff4;
+  border: 1px solid #38a169;
+  color: #276749;
+  border-radius: 8px;
+  margin-bottom: 1.2rem;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 2px 8px rgba(56,178,172,0.07);
+}
+
+#applicationsList strong, #applicationsList span, #applicationsList em, #applicationsList p {
+  color: #38a169 !important;
+}
+#jobsPanel h3 {
+  color: #38a169;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+#allJobList li {
+  background: #f0fff4;
+  border: 1px solid #38a169;
+  color: #276749;
+  border-radius: 8px;
+  margin-bottom: 1.2rem;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 2px 8px rgba(56,178,172,0.07);
+}
+
+#allJobList strong, #allJobList span, #allJobList em, #allJobList p {
+  color: #38a169 !important;
+}
+#registrationsPanel h3 {
+  color: #38a169;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+/* Admin Dashboard Tab Buttons */
+#showJobsBtn, #showRegsBtn, #showAppsBtn {
+  background: #38b2ac;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(56,178,172,0.10);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+#showJobsBtn:hover, #showRegsBtn:hover, #showJobsBtn.active, #showRegsBtn.active {
+  background: #1a365d;
+  color: #f6e05e;
+  box-shadow: 0 4px 16px rgba(26,54,93,0.13);
+}
+/* Admin Area Styles */
+.admin-main {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(120deg, #1a365d 60%, #38b2ac 100%);
+  padding: 2rem 0;
+}
+
+.admin-login-section {
+  background: #fff;
+  padding: 2.5rem 2rem 2rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(26,54,93,0.18);
+  min-width: 320px;
+  max-width: 350px;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin-login-section h2 {
+  color: #1a365d;
+  margin-bottom: 1.5rem;
+}
+
+#adminLoginForm input {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.7rem;
+  border: 1px solid #38b2ac;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+#adminLoginForm button {
+  width: 100%;
+  background: #38b2ac;
+  color: #fff;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#adminLoginForm button:hover {
+  background: #1a365d;
+}
+
+#adminLoginError {
+  margin-top: 0.5rem;
+  color: #e53e3e;
+  font-size: 1rem;
+}
+
+.admin-dashboard {
+  background: #fff;
+  padding: 2rem 2rem 1.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(26,54,93,0.18);
+  min-width: 340px;
+  max-width: 500px;
+  margin-bottom: 2rem;
+}
+
+.admin-dashboard h2 {
+  color: #1a365d;
+  margin-bottom: 1.2rem;
+}
+
+#pendingJobs h3 {
+  color: #38b2ac;
+  margin-bottom: 1rem;
+}
+
+#pendingJobList {
+  list-style: none;
+  padding: 0;
+}
+
+#pendingJobList li {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-bottom: 1.2rem;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 2px 8px rgba(56,178,172,0.07);
+}
+
+#pendingJobList button {
+  margin-right: 0.7rem;
+  margin-top: 0.7rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#pendingJobList .approve-job-btn {
+  background: #38a169;
+  color: #fff;
+}
+
+#pendingJobList .approve-job-btn:hover {
+  background: #276749;
+}
+
+#pendingJobList .remove-job-btn {
+  background: #e53e3e;
+  color: #fff;
+}
+
+#pendingJobList .remove-job-btn:hover {
+  background: #9b2c2c;
+}
 /* Reset & Base Styles */
 * {
   margin: 0;
@@ -302,6 +488,84 @@ p {
   .btn {
     padding: 0.8rem 1.6rem;
     font-size: 1rem;
+  }
+
+  /* Mobile menu toggle styles */
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 8px;
+  }
+
+  .nav-toggle:focus {
+    outline: 3px solid rgba(56,178,172,0.2);
+  }
+
+  .hamburger,
+  .hamburger::before,
+  .hamburger::after {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: white;
+    transition: transform 250ms ease, opacity 200ms ease;
+    position: relative;
+  }
+
+  .hamburger::before,
+  .hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+
+  .hamburger::before { top: -7px; }
+  .hamburger::after { top: 7px; }
+
+  /* Hide the nav by default on small screens and stack vertically when open */
+  .nav {
+    width: 100%;
+    display: none;
+  }
+
+  .nav.open {
+    display: block;
+    background: transparent;
+    margin-top: 12px;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    gap: 0.4rem;
+    align-items: center;
+    padding: 0.8rem 0;
+  }
+
+  .nav-list a {
+    display: block;
+    padding: 0.6rem 1rem;
+    width: 100%;
+    text-align: center;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.04);
+  }
+
+  /* when nav is open, animate hamburger into an X */
+  .nav-toggle[aria-expanded="true"] .hamburger {
+    background: transparent;
+  }
+  .nav-toggle[aria-expanded="true"] .hamburger::before {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .nav-toggle[aria-expanded="true"] .hamburger::after {
+    transform: translateY(-7px) rotate(-45deg);
   }
 }
 

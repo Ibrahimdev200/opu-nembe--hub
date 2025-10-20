@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Job Portal - Nembe</title>
+  <title>Job Portal - Bassambiri</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
   <style>
@@ -278,12 +278,14 @@
     }
 
     .modal-content {
-      background: white;
-      padding: 2rem;
-      border-radius: 16px;
-      width: 90%;
-      max-width: 500px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  max-height: 90vh;
+  overflow-y: auto;
     }
 
     .close-btn {
@@ -364,13 +366,13 @@
   <header class="header">
     <div class="navbar">
       <a href="index.html" class="logo-link">
-        <img src="images/ChatGPT_Image_Sep_4__2025__12_26_36_PM-removebg-preview.png" alt="Nembe Logo" class="logo-img" />
-        <div class="site-name">Nembe <span>Digital Hub</span></div>
+        <img src="images/ChatGPT_Image_Oct_20__2025__03_29_20_AM-removebg-preview.png" alt="Bassambiri Logo" class="logo-img" />
+        <div class="site-name">Bassambiri <span>Digital Hub</span></div>
       </a>
       <nav class="nav">
         <ul class="nav-list">
           <li><a href="index.html">Home</a></li>
-          <li><a href="register.html">Register</a></li>
+          <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSespAVW5IFPMdv0Vae_xrFJabW0CgbzHp669JcKj4Dokhq9UQ/viewform?usp=header">Register</a></li>
           <li><a href="jobs.html" class="active">Job Portal</a></li>
         </ul>
       </nav>
@@ -420,23 +422,30 @@
     <div class="modal-content">
       <span class="close-btn" id="closeApply">&times;</span>
       <h2>Apply for Job</h2>
-      <form id="applyForm">
-        <input type="text" id="applicantName" placeholder="Your Full Name" required />
-        <input type="email" id="applicantEmail" placeholder="Your Email" required />
-        <textarea id="coverLetter" placeholder="Why should you be hired?" rows="4" required></textarea>
-        <button type="submit">Submit Application</button>
+  <h2 style="color:green;">Apply for Job</h2>
+  <form id="applyForm">
+  <input type="text" id="applicantName" placeholder="Your Full Name" required />
+  <input type="email" id="applicantEmail" placeholder="Your Email" required />
+  <input type="tel" id="applicantPhone" placeholder="Phone Number" required />
+  <input type="number" id="applicantAge" placeholder="Age" min="16" required />
+  <input type="text" id="applicantLocation" placeholder="Your Location" required />
+  <input type="number" id="applicantExperience" placeholder="Years of Experience" min="0" required />
+  <label for="applicantCV" style="margin-top:8px;">Upload CV (optional):</label>
+  <input type="file" id="applicantCV" accept=".pdf,.doc,.docx" />
+  <textarea id="coverLetter" placeholder="Why should you be hired?" rows="4" required></textarea>
+  <button type="submit">Submit Application</button>
       </form>
     </div>
   </div>
 
   <!-- Footer -->
   <footer class="footer">
-    <p>&copy; 2025 Nembe Community | Powered by Nembe Peace and Reconciliation Committee</p>
+    <p>&copy; 2025 Bassambiri Community | Powered by Bassambiri Peace and Reconciliation Committee</p>
   </footer>
 
   <script>
     // Job data key
-    const JOBS_KEY = "nembe_jobs";
+    const JOBS_KEY = "Bassambiri_jobs";
 
     // DOM Elements
     const jobList = document.getElementById("jobList");
@@ -453,7 +462,7 @@
       {
         id: Date.now() + Math.random(),
         title: "ICT Center Assistant",
-        company: "Nembe ICT Hub",
+        company: "Bassambiri ICT Hub",
         location: "Bassambiri",
         type: "Full-time",
         description: "Assist in managing daily operations at the community ICT center.",
@@ -505,13 +514,14 @@
       jobs.forEach(job => {
         const li = document.createElement("li");
         const ageInDays = Math.floor((Date.now() - job.postedAt) / (24 * 60 * 60 * 1000));
+        let verifyLabel = job.verified ? `<span style='color:green; font-weight:bold;'>[Verified]</span>` : `<span style='color:orange; font-weight:bold;'>[Unverified]</span>`;
         li.innerHTML = `
-          <strong>${job.title}</strong><br>
+          <strong>${job.title}</strong> ${verifyLabel}<br>
           <span style="color:#38b2ac; font-weight:600;">${job.company}</span> • 
           <em>${job.location}</em> • 
           <span style="color:#718096; font-size:0.95em;">${job.type}</span><br>
           <small>Posted ${ageInDays} day(s) ago</small><br>
-          <p><strong>Description:</strong> ${job.description}</p>
+          <p><strong style="color:green;">Description:</strong> <span style="color:green;">${job.description}</span></p>
           <a href="#" class="apply-btn" data-id="${job.id}">Apply Now</a>
         `;
         jobList.appendChild(li);
@@ -555,7 +565,8 @@
         location: document.getElementById("location").value,
         type: document.getElementById("jobType").value,
         description: document.getElementById("description").value,
-        postedAt: Date.now()
+        postedAt: Date.now(),
+        verified: false
       };
 
       saveJob(newJob);

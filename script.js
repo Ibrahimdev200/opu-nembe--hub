@@ -5,6 +5,28 @@ document.addEventListener("DOMContentLoaded", () => {
   if (form) {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
+      // Collect form data
+      const reg = {
+        classSection: form.classSection.value,
+        firstName: form.firstName.value,
+        lastName: form.lastName.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        address: form.address.value,
+        fromBassambiri: form.fromBassambiri.value,
+        dob: form.dob.value,
+        occupation: form.occupation.value,
+        houseName: form.houseName.value,
+        hasTitle: form.hasTitle.value,
+        titleDetails: form.titleDetails.value,
+        education: form.education.value,
+        computerExp: form.computerExp.value,
+        maritalStatus: form.maritalStatus.value
+      };
+      // Save to localStorage for admin
+      let regs = JSON.parse(localStorage.getItem("Bassambiri_registrations")) || [];
+      regs.push(reg);
+      localStorage.setItem("Bassambiri_registrations", JSON.stringify(regs));
       if (successMessage) {
         successMessage.classList.remove("hidden");
       }
@@ -16,9 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const jobList = document.getElementById("jobList");
   if (jobList) {
     const jobs = [
-      { title: "ICT Center Assistant", company: "Nembe ICT Hub", location: "Bassambiri" },
+      { title: "ICT Center Assistant", company: "Bassambiri ICT Hub", location: "Bassambiri" },
       { title: "Web Developer Intern", company: "Ibrahim Nigerian Ltd", location: "Bayelsa" },
-      { title: "Community Reporter", company: "Nembe Media", location: "Remote" }
+      { title: "Community Reporter", company: "Bassambiri Media", location: "Remote" }
     ];
     jobs.forEach(job => {
       const li = document.createElement("li");
@@ -49,4 +71,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   setRandomVideo();
+
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const mainNav = document.getElementById('mainNav');
+  if (navToggle && mainNav) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', String(!isOpen));
+      mainNav.classList.toggle('open');
+    });
+
+    // close menu on link click (mobile)
+    mainNav.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (a && window.innerWidth <= 768) {
+        navToggle.setAttribute('aria-expanded', 'false');
+        mainNav.classList.remove('open');
+      }
+    });
+  }
 });
