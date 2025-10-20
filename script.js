@@ -16,9 +16,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const jobList = document.getElementById("jobList");
   if (jobList) {
     const jobs = [
-      { title: "ICT Center Assistant", company: "Opu-Nembe ICT Hub", location: "Bassambiri" },
+      { title: "ICT Center Assistant", company: "Nembe ICT Hub", location: "Bassambiri" },
       { title: "Web Developer Intern", company: "Ibrahim Nigerian Ltd", location: "Bayelsa" },
-      { title: "Community Reporter", company: "Opu-Nembe Media", location: "Remote" }
+      { title: "Community Reporter", company: "Nembe Media", location: "Remote" }
     ];
     jobs.forEach(job => {
       const li = document.createElement("li");

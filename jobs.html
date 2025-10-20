@@ -3,328 +3,369 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Job Portal - Opu-Nembe</title>
+  <title>Job Portal - Nembe</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
-  <script defer src="script.js"></script>
+  <style>
+    /* Your existing CSS remains the same */
+    /* Reset & Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #f8fafc;
+      color: #2d3748;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header & Navigation */
+    .header {
+      background: #1a365d;
+      color: white;
+      padding: 1rem 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-link:hover {
+      transform: translateY(-2px);
+    }
+
+    .logo-img {
+      height: 60px;
+      width: auto;
+      border-radius: 12px;
+      border: 3px solid #f6e05e;
+      background: white;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .logo-link:hover .logo-img {
+      transform: scale(1.08) rotate(-3deg);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .site-name {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 0.5px;
+    }
+
+    .site-name span {
+      color: #f6e05e;
+      font-weight: 600;
+      font-size: 1.1em;
+      letter-spacing: 1px;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-list a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.05rem;
+      font-weight: 500;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-list a::after {
+      content: '';
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #f6e05e, #38b2ac);
+      border-radius: 2px;
+      transition: width 0.4s ease, left 0.4s ease;
+    }
+
+    .nav-list a:hover::after,
+    .nav-list a.active::after {
+      width: 70%;
+      left: 15%;
+    }
+
+    .nav-list a.active,
+    .nav-list a:hover {
+      color: #f6e05e;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      overflow: hidden;
+      background: linear-gradient(rgba(26, 54, 93, 0.8), rgba(0, 85, 170, 0.7)), url('images/hero-bg.jpg') center/cover no-repeat;
+      border-bottom-left-radius: 32px;
+      border-bottom-right-radius: 32px;
+    }
+
+    .hero-gradient {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(26, 54, 93, 0.9), rgba(0, 102, 153, 0.7));
+      z-index: 1;
+      pointer-events: none;
+      border-bottom-left-radius: 32px;
+      border-bottom-right-radius: 32px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 4rem 1.5rem;
+      max-width: 800px;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .hero-content h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Jobs Section */
+    .jobs {
+      flex: 1;
+      padding: 3rem 1.5rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 32px rgba(0, 85, 170, 0.12);
+      padding: 2.5rem 2rem;
+      animation: slideUp 0.8s ease-out;
+    }
+
+    .jobs h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: #1a365d;
+      margin-bottom: 1.8rem;
+      text-align: center;
+    }
+
+    .job-list {
+      list-style: none;
+    }
+
+    .job-list li {
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1rem;
+      background: #f9fafb;
+      border-left: 5px solid #38b2ac;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      color: #2d3748;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+
+    .job-list li:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      background: white;
+      border-left-color: #0055aa;
+    }
+
+    .job-list li::before {
+      content: "💼";
+      margin-right: 0.8rem;
+    }
+
+    .post-job-btn {
+      display: block;
+      margin: 1.5rem auto;
+      padding: 0.8rem 2rem;
+      background: #1a365d;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .post-job-btn:hover {
+      background: #0055aa;
+    }
+
+    .apply-btn {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.4rem 0.8rem;
+      background: #38b2ac;
+      color: white;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .expired {
+      opacity: 0.6;
+      filter: blur(1px);
+      pointer-events: none;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .close-btn {
+      float: right;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: #aaa;
+    }
+
+    .close-btn:hover {
+      color: #000;
+    }
+
+    input, textarea, button {
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.6rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+
+    button[type="submit"] {
+      background: #1a365d;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background: #0055aa;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 1.8rem 1rem;
+      margin-top: auto;
+      background: #1a365d;
+      color: #e2e8f0;
+      font-size: 0.95rem;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .footer p {
+      color: #cbd5e0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .navbar { flex-direction: column; align-items: flex-start; }
+      .nav-list { margin-top: 1rem; justify-content: center; }
+      .hero-content h1 { font-size: 2.4rem; }
+      .container { padding: 2rem 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      .site-name { font-size: 1.6rem; }
+      .nav-list { gap: 1rem; flex-wrap: wrap; }
+      .job-list li { padding: 1rem; font-size: 1rem; }
+      .jobs h2 { font-size: 2rem; }
+    }
+  </style>
 </head>
-<style>
-  /* Reset & Base */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-
-body {
-  background: #f8fafc;
-  color: #2d3748;
-  line-height: 1.7;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Header & Navigation */
-.header {
-  background: #1a365d;
-  color: white;
-  padding: 1rem 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-/* Logo Section */
-.logo-link {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  text-decoration: none;
-  transition: transform 0.3s ease;
-}
-
-.logo-link:hover {
-  transform: translateY(-2px);
-}
-
-.logo-img {
-  height: 60px;
-  width: auto;
-  border-radius: 12px;
-  border: 3px solid #f6e05e;
-  background: white;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.logo-link:hover .logo-img {
-  transform: scale(1.08) rotate(-3deg);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-.site-name {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: white;
-  letter-spacing: 0.5px;
-}
-
-.site-name span {
-  color: #f6e05e;
-  font-weight: 600;
-  font-size: 1.1em;
-  letter-spacing: 1px;
-}
-
-/* Navigation */
-.nav-list {
-  list-style: none;
-  display: flex;
-  gap: 2rem;
-}
-
-.nav-list a {
-  color: white;
-  text-decoration: none;
-  font-size: 1.05rem;
-  font-weight: 500;
-  padding: 0.6rem 1rem;
-  border-radius: 8px;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-.nav-list a::after {
-  content: '';
-  position: absolute;
-  bottom: 6px;
-  left: 50%;
-  width: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #f6e05e, #38b2ac);
-  border-radius: 2px;
-  transition: width 0.4s ease, left 0.4s ease;
-}
-
-.nav-list a:hover::after,
-.nav-list a.active::after {
-  width: 70%;
-  left: 15%;
-}
-
-.nav-list a.active,
-.nav-list a:hover {
-  color: #f6e05e;
-}
-
-/* Hero Section */
-.hero {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: white;
-  overflow: hidden;
-  background: linear-gradient(rgba(26, 54, 93, 0.8), rgba(0, 85, 170, 0.7)), url('images/hero-bg.jpg') center/cover no-repeat;
-  border-bottom-left-radius: 32px;
-  border-bottom-right-radius: 32px;
-}
-
-.hero-gradient {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(26, 54, 93, 0.9), rgba(0, 102, 153, 0.7));
-  z-index: 1;
-  pointer-events: none;
-  border-bottom-left-radius: 32px;
-  border-bottom-right-radius: 32px;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  padding: 4rem 1.5rem;
-  max-width: 800px;
-  animation: fadeIn 1s ease-out;
-}
-
-.hero-content h1 {
-  font-size: 2.8rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-}
-
-.hero-subtitle {
-  font-size: 1.2rem;
-  max-width: 600px;
-  margin: 0 auto;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* Jobs Section */
-.jobs {
-  flex: 1;
-  padding: 3rem 1.5rem;
-}
-
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 10px 32px rgba(0, 85, 170, 0.12);
-  padding: 2.5rem 2rem;
-  animation: slideUp 0.8s ease-out;
-}
-
-.jobs h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.2rem;
-  color: #1a365d;
-  margin-bottom: 1.8rem;
-  text-align: center;
-}
-
-.job-list {
-  list-style: none;
-}
-
-.job-list li {
-  padding: 1.2rem 1.5rem;
-  margin-bottom: 1rem;
-  background: #f9fafb;
-  border-left: 5px solid #38b2ac;
-  border-radius: 10px;
-  font-size: 1.05rem;
-  color: #2d3748;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.job-list li:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-  background: white;
-  border-left-color: #0055aa;
-}
-
-.job-list li::before {
-  content: "💼";
-  margin-right: 0.8rem;
-}
-
-/* Footer */
-.footer {
-  text-align: center;
-  padding: 1.8rem 1rem;
-  margin-top: auto;
-  background: #1a365d;
-  color: #e2e8f0;
-  font-size: 0.95rem;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.footer p {
-  color: #cbd5e0;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .nav-list {
-    margin-top: 1rem;
-    justify-content: center;
-  }
-
-  .hero-content h1 {
-    font-size: 2.4rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1.1rem;
-  }
-
-  .container {
-    padding: 2rem 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .site-name {
-    font-size: 1.6rem;
-  }
-
-  .nav-list {
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .job-list li {
-    padding: 1rem;
-    font-size: 1rem;
-  }
-
-  .jobs h2 {
-    font-size: 2rem;
-  }
-}
-</style>
 <body>
+
   <!-- Header -->
   <header class="header">
     <div class="navbar">
       <a href="index.html" class="logo-link">
-        <img src="images/ChatGPT Image Sep 2, 2025, 08_09_21 PM.png" alt="Opu-Nembe Logo" class="logo-img" />
-        <div class="site-name">
-          Opu-Nembe <span>Bassambiri</span>
-        </div>
+        <img src="images/ChatGPT_Image_Sep_4__2025__12_26_36_PM-removebg-preview.png" alt="Nembe Logo" class="logo-img" />
+        <div class="site-name">Nembe <span>Digital Hub</span></div>
       </a>
       <nav class="nav">
         <ul class="nav-list">
@@ -351,68 +392,192 @@ body {
   <section class="jobs">
     <div class="container">
       <h2>Available Job Opportunities</h2>
+      <button id="postJobBtn" class="post-job-btn">Post a New Job</button>
       <ul id="jobList" class="job-list">
-        <!-- Jobs will be loaded dynamically via JavaScript -->
+        <!-- Jobs loaded dynamically -->
       </ul>
     </div>
   </section>
 
+  <!-- Post Job Modal -->
+  <div id="postJobModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="closePost">&times;</span>
+      <h2>Post a Job</h2>
+      <form id="postJobForm">
+        <input type="text" id="jobTitle" placeholder="Job Title" required />
+        <input type="text" id="company" placeholder="Company" required />
+        <input type="text" id="location" placeholder="Location" required />
+        <input type="text" id="jobType" placeholder="Job Type (e.g., Full-time)" required />
+        <textarea id="description" placeholder="Job Description" rows="4" required></textarea>
+        <button type="submit">Post Job</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Apply Job Modal -->
+  <div id="applyModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeApply">&times;</span>
+      <h2>Apply for Job</h2>
+      <form id="applyForm">
+        <input type="text" id="applicantName" placeholder="Your Full Name" required />
+        <input type="email" id="applicantEmail" placeholder="Your Email" required />
+        <textarea id="coverLetter" placeholder="Why should you be hired?" rows="4" required></textarea>
+        <button type="submit">Submit Application</button>
+      </form>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="footer">
-    <p>&copy; 2025 Opu-Nembe Community | Powered by opu-nembe peace and reconciliation committee </p>
+    <p>&copy; 2025 Nembe Community | Powered by Nembe Peace and Reconciliation Committee</p>
   </footer>
-</body>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-  // Sample Job Data
-  const jobs = [
-    {
-      title: "ICT Center Assistant",
-      company: "Opu-Nembe ICT Hub",
-      location: "Bassambiri",
-      type: "Full-time"
-    },
-    {
-      title: "Web Developer Intern",
-      company: "Ibrahim Nigerian Ltd",
-      location: "Bayelsa (Hybrid)",
-      type: "Internship"
-    },
-    {
-      title: "Community Reporter",
-      company: "Opu-Nembe Media",
-      location: "Remote",
-      type: "Part-time"
-    },
-    {
-      title: "Youth Mentor (Tech)",
-      company: "Opu-Nembe Development Trust",
-      location: "Bassambiri",
-      type: "Volunteer"
-    },
-    {
-      title: "Data Entry Officer",
-      company: "Local Government Office",
-      location: "Nembe",
-      type: "Contract"
+  <script>
+    // Job data key
+    const JOBS_KEY = "nembe_jobs";
+
+    // DOM Elements
+    const jobList = document.getElementById("jobList");
+    const postJobBtn = document.getElementById("postJobBtn");
+    const postJobModal = document.getElementById("postJobModal");
+    const applyModal = document.getElementById("applyModal");
+    const closePost = document.getElementById("closePost");
+    const closeApply = document.getElementById("closeApply");
+    const postJobForm = document.getElementById("postJobForm");
+    const applyForm = document.getElementById("applyForm");
+
+    // Sample jobs (initial)
+    const sampleJobs = [
+      {
+        id: Date.now() + Math.random(),
+        title: "ICT Center Assistant",
+        company: "Nembe ICT Hub",
+        location: "Bassambiri",
+        type: "Full-time",
+        description: "Assist in managing daily operations at the community ICT center.",
+        postedAt: Date.now() - 10 * 24 * 60 * 60 * 1000 // 10 days ago
+      },
+      {
+        id: Date.now() + Math.random(),
+        title: "Web Developer Intern",
+        company: "Ibrahim Nigerian Ltd",
+        location: "Bayelsa (Hybrid)",
+        type: "Internship",
+        description: "Learn web development with real projects.",
+        postedAt: Date.now() - 45 * 24 * 60 * 60 * 1000 // 45 days ago (will be deleted)
+      }
+    ];
+
+    // Load jobs from localStorage or initialize
+    function loadJobs() {
+      let jobs = JSON.parse(localStorage.getItem(JOBS_KEY)) || sampleJobs;
+      
+      // Filter out jobs older than 30 days
+      const thirtyDays = 30 * 24 * 60 * 60 * 1000;
+      const now = Date.now();
+      jobs = jobs.filter(job => (now - job.postedAt) < thirtyDays);
+
+      // Save back (clean expired)
+      localStorage.setItem(JOBS_KEY, JSON.stringify(jobs));
+
+      return jobs;
     }
-  ];
 
-  const jobList = document.getElementById("jobList");
+    // Save job
+    function saveJob(job) {
+      const jobs = loadJobs();
+      jobs.push(job);
+      localStorage.setItem(JOBS_KEY, JSON.stringify(jobs));
+    }
 
-  if (jobList) {
-    jobs.forEach(job => {
-      const li = document.createElement("li");
-      li.innerHTML = `
-        <strong>${job.title}</strong><br>
-        <span style="color:#38b2ac; font-weight:600;">${job.company}</span> • 
-        <em>${job.location}</em> • 
-        <span style="color:#718096; font-size:0.95em;">${job.type}</span>
-      `;
-      jobList.appendChild(li);
+    // Render jobs
+    function renderJobs() {
+      const jobs = loadJobs();
+      jobList.innerHTML = "";
+
+      if (jobs.length === 0) {
+        jobList.innerHTML = "<li>No jobs available at the moment.</li>";
+        return;
+      }
+
+      jobs.forEach(job => {
+        const li = document.createElement("li");
+        const ageInDays = Math.floor((Date.now() - job.postedAt) / (24 * 60 * 60 * 1000));
+        li.innerHTML = `
+          <strong>${job.title}</strong><br>
+          <span style="color:#38b2ac; font-weight:600;">${job.company}</span> • 
+          <em>${job.location}</em> • 
+          <span style="color:#718096; font-size:0.95em;">${job.type}</span><br>
+          <small>Posted ${ageInDays} day(s) ago</small><br>
+          <p><strong>Description:</strong> ${job.description}</p>
+          <a href="#" class="apply-btn" data-id="${job.id}">Apply Now</a>
+        `;
+        jobList.appendChild(li);
+      });
+
+      // Add event listeners to Apply buttons
+      document.querySelectorAll(".apply-btn").forEach(btn => {
+        btn.addEventListener("click", function (e) {
+          e.preventDefault();
+          const jobId = this.getAttribute("data-id");
+          openApplyModal(jobId);
+        });
+      });
+    }
+
+    // Open Post Job Modal
+    postJobBtn.addEventListener("click", () => {
+      postJobModal.style.display = "flex";
     });
-  }
-});
-</script>
+
+    closePost.addEventListener("click", () => {
+      postJobModal.style.display = "none";
+    });
+
+    closeApply.addEventListener("click", () => {
+      applyModal.style.display = "none";
+    });
+
+    window.addEventListener("click", (e) => {
+      if (e.target === postJobModal) postJobModal.style.display = "none";
+      if (e.target === applyModal) applyModal.style.display = "none";
+    });
+
+    // Post Job Form Submit
+    postJobForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const newJob = {
+        id: Date.now(),
+        title: document.getElementById("jobTitle").value,
+        company: document.getElementById("company").value,
+        location: document.getElementById("location").value,
+        type: document.getElementById("jobType").value,
+        description: document.getElementById("description").value,
+        postedAt: Date.now()
+      };
+
+      saveJob(newJob);
+      postJobForm.reset();
+      postJobModal.style.display = "none";
+      renderJobs();
+    });
+
+    // Apply Modal
+    function openApplyModal(jobId) {
+      applyModal.style.display = "flex";
+      applyForm.onsubmit = function (e) {
+        e.preventDefault();
+        const name = document.getElementById("applicantName").value;
+        alert(`Thank you, ${name}! Your application has been submitted.`);
+        applyForm.reset();
+        applyModal.style.display = "none";
+      };
+    }
+
+    // Initialize
+    renderJobs();
+  </script>
+</body>
 </html>
